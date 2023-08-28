@@ -22,6 +22,7 @@ struct Transaction: Identifiable {
         let formattedAmount = formatter.string(from: amount as NSNumber)
         return formattedAmount ?? "$ 0.00"
     }
+    
 }
 struct HomeView: View {
     @State var transactions: [Transaction] = [
