@@ -7,7 +7,27 @@
 
 import SwiftUI
 
+enum TransactionType {
+    case income
+    case expense
+}
+
+struct Transaction: Identifiable {
+    let id = UUID()
+    let amount: Double
+    let type: TransactionType
+    var displayAmount: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        let formattedAmount = formatter.string(from: amount as NSNumber)
+        return formattedAmount ?? "$ 0.00"
+    }
+}
 struct HomeView: View {
+    @State var transactions: [Transaction] = [
+        Transaction(amount: 3.00, type: .income),
+        Transaction(amount: 5.00, type: .expense)
+    ]
     fileprivate func BalanceView() -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
@@ -56,7 +76,14 @@ struct HomeView: View {
     }
     
     var body: some View {
+        VStack {
        BalanceView()
+            List(transactions, id: \.id) { transaction in
+                HStack {
+                    Text("\(transaction.displayAmount)")
+                }
+            }
+        }
     }
 }
 
