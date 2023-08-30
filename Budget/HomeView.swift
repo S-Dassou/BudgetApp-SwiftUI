@@ -93,30 +93,58 @@ struct HomeView: View {
     }
     
     var body: some View {
-        VStack {
-       BalanceView()
-            List(transactions) { transaction in
+        NavigationStack {
+            ZStack {
                 VStack {
-                    HStack {
-                        Spacer()
-                        Text("\(transaction.displayDate)")
-                            .font(.system(size: 14, weight: .bold
-                                         ))
-                        Spacer()
-                    }
-                    .padding(.vertical, 5)
-                    .background(Color("primaryShade").opacity(0.5))
-                    .cornerRadius(5)
-                    HStack {
-                            Image(systemName: "arrow.up.forward")
-                            .font(.system(size: 14, weight: .bold))
-                            .foregroundColor(Color.green)
+               BalanceView()
+                    List(transactions) { transaction in
                         VStack {
-                            Text("\(transaction.title)")
-                            Text("\(transaction.displayAmount)")
-                                .font(.system(size: 14, weight: .semibold))
+                            HStack {
+                                Spacer()
+                                Text("\(transaction.displayDate)")
+                                    .font(.system(size: 14, weight: .bold
+                                                 ))
+                                Spacer()
+                            }
+                            .padding(.vertical, 5)
+                            .background(Color("primaryShade").opacity(0.5))
+                            .cornerRadius(5)
+                            HStack {
+                                Image(systemName: transaction.type == .income ? "arrow.up.forward" : "arrow.down.forward")
+                                    .font(.system(size: 14, weight: .bold))
+                                    .foregroundColor(transaction.type == .income ? Color.green : Color.red)
+                                VStack(alignment: .leading, spacing: 5) {
+                                    HStack {
+                                        Text("\(transaction.title)")
+                                        Spacer()
+                                        Text("\(transaction.displayAmount)")
+                                    }
+                                        .font(.system(size: 14, weight: .bold))
+                                    Text("Completed")
+                                        .font(.system(size: 14))
+                                }
+                                Spacer()
+                            }
                         }
                     }
+                    .scrollContentBackground(.hidden)
+                }
+                VStack {
+                    Spacer()
+                    HStack {
+                            NavigationLink {
+                                AddTransactionView()
+                            } label: {
+                                Text("+")
+                                    .font(.largeTitle)
+                                    .foregroundColor(.white)
+                                    .frame(width: 80, height: 80)
+                            }
+                            .background(Color("primary"))
+                            .clipped()
+                            .cornerRadius(40)
+                    }
+
                 }
             }
         }
