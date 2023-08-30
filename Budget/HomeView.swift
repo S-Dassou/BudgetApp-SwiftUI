@@ -14,8 +14,18 @@ enum TransactionType {
 
 struct Transaction: Identifiable {
     let id = UUID()
+    let title: String
     let amount: Double
+    let date: Date
     let type: TransactionType
+    
+    var displayDate: String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        let formattedDate = formatter.string(from: date)
+        return formattedDate
+    }
+    
     var displayAmount: String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .currency
@@ -24,10 +34,16 @@ struct Transaction: Identifiable {
     }
     
 }
+
+extension Transaction: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
 struct HomeView: View {
     @State var transactions: [Transaction] = [
-        Transaction(amount: 3.00, type: .income),
-        Transaction(amount: 5.00, type: .expense)
+        Transaction(title: "Work", amount: 3.00, date: Date(), type: .income),
+        Transaction(title: "iOS", amount: 5.00, date: Date(), type: .expense)
     ]
     fileprivate func BalanceView() -> some View {
         ZStack {
@@ -79,9 +95,28 @@ struct HomeView: View {
     var body: some View {
         VStack {
        BalanceView()
-            List(transactions, id: \.id) { transaction in
-                HStack {
-                    Text("\(transaction.displayAmount)")
+            List(transactions) { transaction in
+                VStack {
+                    HStack {
+                        Spacer()
+                        Text("\(transaction.displayDate)")
+                            .font(.system(size: 14, weight: .bold
+                                         ))
+                        Spacer()
+                    }
+                    .padding(.vertical, 5)
+                    .background(Color("primaryShade").opacity(0.5))
+                    .cornerRadius(5)
+                    HStack {
+                            Image(systemName: "arrow.up.forward")
+                            .font(.system(size: 14, weight: .bold))
+                            .foregroundColor(Color.green)
+                        VStack {
+                            Text("\(transaction.title)")
+                            Text("\(transaction.displayAmount)")
+                                .font(.system(size: 14, weight: .semibold))
+                        }
+                    }
                 }
             }
         }
