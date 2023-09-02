@@ -45,6 +45,7 @@ struct HomeView: View {
         Transaction(title: "Work", amount: 3.00, date: Date(), type: .income),
         Transaction(title: "iOS", amount: 5.00, date: Date(), type: .expense)
     ]
+    
     fileprivate func BalanceView() -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
@@ -92,40 +93,19 @@ struct HomeView: View {
         .padding(.horizontal)
     }
     
+    func TransactionImage(transaction: TransactionType) -> some View {
+        Image(systemName: transaction == .income ? "arrow.up.forward" : "arrow.down.forward")
+            .font(.system(size: 14, weight: .bold))
+            .foregroundColor(transaction == .income ? Color.green : Color.red)
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack {
                 VStack {
                BalanceView()
                     List(transactions) { transaction in
-                        VStack {
-                            HStack {
-                                Spacer()
-                                Text("\(transaction.displayDate)")
-                                    .font(.system(size: 14, weight: .bold
-                                                 ))
-                                Spacer()
-                            }
-                            .padding(.vertical, 5)
-                            .background(Color("primaryShade").opacity(0.5))
-                            .cornerRadius(5)
-                            HStack {
-                                Image(systemName: transaction.type == .income ? "arrow.up.forward" : "arrow.down.forward")
-                                    .font(.system(size: 14, weight: .bold))
-                                    .foregroundColor(transaction.type == .income ? Color.green : Color.red)
-                                VStack(alignment: .leading, spacing: 5) {
-                                    HStack {
-                                        Text("\(transaction.title)")
-                                        Spacer()
-                                        Text("\(transaction.displayAmount)")
-                                    }
-                                        .font(.system(size: 14, weight: .bold))
-                                    Text("Completed")
-                                        .font(.system(size: 14))
-                                }
-                                Spacer()
-                            }
-                        }
+                        ListRowView(transaction: transaction)
                     }
                     .scrollContentBackground(.hidden)
                 }
@@ -144,7 +124,6 @@ struct HomeView: View {
                             .clipped()
                             .cornerRadius(40)
                     }
-
                 }
             }
         }
@@ -154,5 +133,38 @@ struct HomeView: View {
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
+    }
+}
+
+struct ListRowView: View {
+    var transaction: Transaction
+    var body: some View {
+        VStack {
+            HStack {
+                Spacer()
+                Text("\(transaction.displayDate)")
+                    .font(.system(size: 14, weight: .bold))
+                Spacer()
+            }
+            .padding(.vertical, 5)
+            .background(Color("primaryShade").opacity(0.5))
+            .cornerRadius(5)
+            HStack {
+                Image(systemName: transaction.type == .income ? "arrow.up.forward": "arrow.down.forward")
+                    .font(.system(size: 14, weight: .bold))
+                    .foregroundColor(transaction.type == .income ? Color.green : Color.red)
+                VStack(alignment: .leading, spacing: 5) {
+                    HStack {
+                        Text("\(transaction.title)")
+                        Spacer()
+                        Text("\(transaction.displayAmount)")
+                    }
+                    .font(.system(size: 14, weight: .bold))
+                    Text("Completed")
+                        .font(.system(size: 14))
+                }
+                Spacer()
+            }
+        }
     }
 }
