@@ -93,38 +93,45 @@ struct HomeView: View {
         .padding(.horizontal)
     }
     
-    func TransactionImage(transaction: TransactionType) -> some View {
+    fileprivate func TransactionImage(transaction: TransactionType) -> some View {
         Image(systemName: transaction == .income ? "arrow.up.forward" : "arrow.down.forward")
             .font(.system(size: 14, weight: .bold))
             .foregroundColor(transaction == .income ? Color.green : Color.red)
     }
-    
+    fileprivate func FloatingButton() -> some View {
+        VStack {
+            Spacer()
+            HStack {
+                    NavigationLink {
+                        AddTransactionView()
+                    } label: {
+                        Text("+")
+                            .font(.largeTitle)
+                            .foregroundColor(.white)
+                            .frame(width: 80, height: 80)
+                    }
+                    .background(Color("primary"))
+                    .clipped()
+                    .cornerRadius(40)
+            }
+        }
+    }
+     
     var body: some View {
         NavigationStack {
             ZStack {
                 VStack {
                BalanceView()
                     List(transactions) { transaction in
-                        ListRowView(transaction: transaction)
+                        NavigationLink {
+                            AddTransactionView()
+                        } label: {
+                            ListRowView(transaction: transaction)
+                        }
                     }
                     .scrollContentBackground(.hidden)
                 }
-                VStack {
-                    Spacer()
-                    HStack {
-                            NavigationLink {
-                                AddTransactionView()
-                            } label: {
-                                Text("+")
-                                    .font(.largeTitle)
-                                    .foregroundColor(.white)
-                                    .frame(width: 80, height: 80)
-                            }
-                            .background(Color("primary"))
-                            .clipped()
-                            .cornerRadius(40)
-                    }
-                }
+                FloatingButton()
             }
         }
     }
@@ -137,7 +144,7 @@ struct HomeView_Previews: PreviewProvider {
 }
 
 struct ListRowView: View {
-    var transaction: Transaction
+    let transaction: Transaction
     var body: some View {
         VStack {
             HStack {
