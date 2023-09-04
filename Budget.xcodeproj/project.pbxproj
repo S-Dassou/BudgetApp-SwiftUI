@@ -12,6 +12,7 @@
 		F65608E02A9B872400BC12DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F65608DF2A9B872400BC12DB /* Assets.xcassets */; };
 		F65608E32A9B872400BC12DB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F65608E22A9B872400BC12DB /* Preview Assets.xcassets */; };
 		F65608EC2A9F7FB800BC12DB /* AddTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65608EB2A9F7FB800BC12DB /* AddTransactionView.swift */; };
+		F65608F22AA506DB00BC12DB /* TransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65608F12AA506DB00BC12DB /* TransactionModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		F65608DF2A9B872400BC12DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F65608E22A9B872400BC12DB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		F65608EB2A9F7FB800BC12DB /* AddTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionView.swift; sourceTree = "<group>"; };
+		F65608F12AA506DB00BC12DB /* TransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 				F65608DF2A9B872400BC12DB /* Assets.xcassets */,
 				F65608E12A9B872400BC12DB /* Preview Content */,
 				F65608EB2A9F7FB800BC12DB /* AddTransactionView.swift */,
+				F65608F12AA506DB00BC12DB /* TransactionModel.swift */,
 			);
 			path = Budget;
 			sourceTree = "<group>";
@@ -140,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F65608F22AA506DB00BC12DB /* TransactionModel.swift in Sources */,
 				F65608EC2A9F7FB800BC12DB /* AddTransactionView.swift in Sources */,
 				F65608DE2A9B872300BC12DB /* HomeView.swift in Sources */,
 				F65608DC2A9B872300BC12DB /* BudgetApp.swift in Sources */,

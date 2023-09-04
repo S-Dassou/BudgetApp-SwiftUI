@@ -7,39 +7,7 @@
 
 import SwiftUI
 
-enum TransactionType {
-    case income
-    case expense
-}
 
-struct Transaction: Identifiable {
-    let id = UUID()
-    let title: String
-    let amount: Double
-    let date: Date
-    let type: TransactionType
-    
-    var displayDate: String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        let formattedDate = formatter.string(from: date)
-        return formattedDate
-    }
-    
-    var displayAmount: String {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        let formattedAmount = formatter.string(from: amount as NSNumber)
-        return formattedAmount ?? "$ 0.00"
-    }
-    
-}
-
-extension Transaction: Hashable {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-}
 struct HomeView: View {
     @State var transactions: [Transaction] = [
         Transaction(title: "Work", amount: 3.00, date: Date(), type: .income),
