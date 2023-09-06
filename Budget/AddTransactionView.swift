@@ -8,15 +8,33 @@
 import SwiftUI
 
 struct AddTransactionView: View {
-    @State var amount = ""
+    @State var amount: Double = 0
     @State var title = ""
     @State var type: TransactionType = .expense
     
+    var numberFormatter: NumberFormatter {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .currency
+        numberFormatter.maximumFractionDigits = 2
+        return numberFormatter
+    }
+    
     var body: some View {
         VStack {
-            TextField("$0.00", text: $amount)
-                .textFieldStyle(.plain)
-            
+            ZStack {
+                TextField("$0.00", value: $amount, formatter: numberFormatter)
+                    .font(.system(size: 60, weight: .thin))
+                    .multilineTextAlignment(.center)
+                    .textFieldStyle(.plain)
+                HStack {
+                    Spacer()
+                    Text("USD")
+                        .padding(6)
+                        .background(Color.gray.opacity(0.4))
+                        .cornerRadius(5)
+                        .padding(.trailing, 30)
+                }
+            }
             Picker("choose a type", selection: $type) {
                 ForEach(TransactionType.allCases, id: \.self) { type in
                     Text(type.rawValue)
