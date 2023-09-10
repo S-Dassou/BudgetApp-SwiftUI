@@ -12,6 +12,7 @@ struct CurrencyField: View {
     let placeholder: String
     @Binding var amount: NSNumber
     @State var isEditing = false
+    @State var valueWhileEditing = ""
     
     var numberFormatter: NumberFormatter {
         let numberFormatter = NumberFormatter()
@@ -26,12 +27,19 @@ struct CurrencyField: View {
     
     var body: some View {
         TextField(placeholder, text: Binding(get: {
-            return "\(Double(truncating: amount))"
+            if isEditing {
+                return valueWhileEditing
+            } else {
+                return "\(Double(truncating: amount))"
+            }
         }, set: { value in
             let number = value.filter { "01234567890.".contains($0) }
-            if let numberAsDouble = Double(number) {
-                amount = numberAsDouble as NSNumber
+            if number.filter({$0 == "."}).count <= 1 {
+                valueWhileEditing = number
             }
+//            if let numberAsDouble = Double(number) {
+//                amount = numberAsDouble as NSNumber
+//            }
         })) { isEditing in
             self.isEditing = isEditing
         }
