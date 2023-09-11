@@ -36,6 +36,9 @@ struct CurrencyField: View {
             let number = value.filter { "01234567890.".contains($0) }
             if number.filter({$0 == "."}).count <= 1 {
                 valueWhileEditing = number
+            } else {
+                let newValue = String(number.dropLast(number.count - valueWhileEditing.count))
+                valueWhileEditing = newValue
             }
 //            if let numberAsDouble = Double(number) {
 //                amount = numberAsDouble as NSNumber
