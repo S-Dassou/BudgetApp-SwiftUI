@@ -40,11 +40,18 @@ struct CurrencyField: View {
                 let newValue = String(number.dropLast(number.count - valueWhileEditing.count))
                 valueWhileEditing = newValue
             }
+            updateValue(with: valueWhileEditing)
 //            if let numberAsDouble = Double(number) {
 //                amount = numberAsDouble as NSNumber
 //            }
         })) { isEditing in
             self.isEditing = isEditing
+        }
+    }
+    
+    func updateValue(with inputAmount: String) {
+        if let newValue = numberFormatter.number(from: valueWhileEditing) {
+            amount = newValue
         }
     }
 }
