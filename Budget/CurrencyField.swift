@@ -21,9 +21,22 @@ struct CurrencyField: View {
         return numberFormatter
     }
     
-    var formattedValue: String {
-        return numberFormatter.string(from: amount) ?? ""
+    var currencyFormatter: NumberFormatter {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .currency
+        return numberFormatter
     }
+    
+    var formattedValue: String {
+        if let formattedAmount = currencyFormatter.string(from: amount) {
+            return formattedAmount
+        } else {
+            return ""
+        }
+    
+//    var formattedValue: String {
+//        return numberFormatter.string(from: amount) ?? ""
+//    }
     
     var body: some View {
         TextField(placeholder, text: Binding(get: {

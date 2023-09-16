@@ -66,6 +66,7 @@ struct HomeView: View {
             .font(.system(size: 14, weight: .bold))
             .foregroundColor(transaction == .income ? Color.green : Color.red)
     }
+    
     fileprivate func FloatingButton() -> some View {
         VStack {
             Spacer()
