@@ -9,10 +9,7 @@ import SwiftUI
 
 
 struct HomeView: View {
-    @State var transactions: [Transaction] = [
-        Transaction(title: "Work", amount: 3.00, date: Date(), type: .income),
-        Transaction(title: "iOS", amount: 5.00, date: Date(), type: .expense)
-    ]
+    @State var transactions: [Transaction] = []
     
     fileprivate func BalanceView() -> some View {
         ZStack {
@@ -72,7 +69,7 @@ struct HomeView: View {
             Spacer()
             HStack {
                     NavigationLink {
-                        AddTransactionView()
+                        AddTransactionView(transactions: $transactions)
                     } label: {
                         Text("+")
                             .font(.largeTitle)
@@ -93,7 +90,7 @@ struct HomeView: View {
                BalanceView()
                     List(transactions) { transaction in
                         NavigationLink {
-                            AddTransactionView()
+                            AddTransactionView(transactions: $transactions)
                         } label: {
                             ListRowView(transaction: transaction)
                         }

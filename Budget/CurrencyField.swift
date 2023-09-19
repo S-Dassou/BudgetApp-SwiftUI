@@ -33,44 +33,51 @@ struct CurrencyField: View {
         } else {
             return ""
         }
-    
-//    var formattedValue: String {
-//        return numberFormatter.string(from: amount) ?? ""
-//    }
-    
-    var body: some View {
-        TextField(placeholder, text: Binding(get: {
-            if isEditing {
-                return valueWhileEditing
-            } else {
-                return "\(Double(truncating: amount))"
-            }
-        }, set: { value in
-            let number = value.filter { "01234567890.".contains($0) }
-            if number.filter({$0 == "."}).count <= 1 {
-                valueWhileEditing = number
-            } else {
-                let newValue = String(number.dropLast(number.count - valueWhileEditing.count))
-                valueWhileEditing = newValue
-            }
-            updateValue(with: valueWhileEditing)
-//            if let numberAsDouble = Double(number) {
-//                amount = numberAsDouble as NSNumber
-//            }
-        })) { isEditing in
-            self.isEditing = isEditing
-        }
     }
-    
-    func updateValue(with inputAmount: String) {
-        if let newValue = numberFormatter.number(from: valueWhileEditing) {
-            amount = newValue
+        
+        //    var formattedValue: String {
+        //        return numberFormatter.string(from: amount) ?? ""
+        //    }
+        
+        var body: some View {
+            TextField(placeholder, text: Binding(get: {
+                if isEditing {
+                    return valueWhileEditing
+                } else {
+                    return formattedValue
+                }
+            }, set: { value in
+                let number = value.filter { "01234567890.".contains($0) }
+                if number.filter({$0 == "."}).count <= 1 {
+                    valueWhileEditing = number
+                } else {
+                    let newValue = String(number.dropLast(number.count - valueWhileEditing.count))
+                    valueWhileEditing = newValue
+                }
+                updateValue(with: valueWhileEditing)
+                //            if let numberAsDouble = Double(number) {
+                //                amount = numberAsDouble as NSNumber
+                //            }
+            })) { isEditing in
+                self.isEditing = isEditing
+            }
+            .onChange(of: isEditing) { newValue in
+                if !newValue {
+                    valueWhileEditing = formattedValue
+                }
+            }
         }
-    }
-}
-
-struct CurrencyField_Previews: PreviewProvider {
-    static var previews: some View {
-        CurrencyField(placeholder: "$0.00", amount: .constant(0.00 as NSNumber))
+        
+        func updateValue(with inputAmount: String) {
+            if let newValue = numberFormatter.number(from: valueWhileEditing) {
+                amount = newValue
+            }
+        }
+    
+    
+    struct CurrencyField_Previews: PreviewProvider {
+        static var previews: some View {
+            CurrencyField(placeholder: "$0.00", amount: .constant(0.00 as NSNumber))
+        }
     }
 }

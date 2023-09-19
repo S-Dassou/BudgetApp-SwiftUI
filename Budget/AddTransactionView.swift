@@ -12,6 +12,7 @@ struct AddTransactionView: View {
     @State var title = ""
     @State var type: TransactionType = .expense
     @State var test: NSNumber = 0
+    @Binding var transactions: [Transaction]
     var numberFormatter: NumberFormatter {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .currency
@@ -56,7 +57,8 @@ struct AddTransactionView: View {
                 .textFieldStyle(.roundedBorder)
                 .padding(.horizontal, 30)
             Button {
-                
+                let newTransaction = Transaction(title: title, amount: amount, date: Date(), type: type)
+                transactions.append(newTransaction)
             } label: {
                 Text("Create")
                     .font(.system(size: 15, weight: .semibold))
@@ -75,6 +77,6 @@ struct AddTransactionView: View {
 
 struct AddTransactionView_Previews: PreviewProvider {
     static var previews: some View {
-        AddTransactionView()
+        AddTransactionView(transactions: .constant([]))
     }
 }
