@@ -90,7 +90,7 @@ struct HomeView: View {
                BalanceView()
                     List(transactions) { transaction in
                         NavigationLink {
-                            AddTransactionView(transactions: $transactions)
+                            AddTransactionView(transactions: $transactions, currentTransaction: transaction)
                         } label: {
                             ListRowView(transaction: transaction)
                         }

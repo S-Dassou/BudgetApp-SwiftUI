@@ -11,18 +11,26 @@ struct AddTransactionView: View {
     @State var amount: Double = 0
     @State var title = ""
     @State var type: TransactionType = .expense
-    @State var test: NSNumber = 0
     @Binding var transactions: [Transaction]
+    var currentTransaction: Transaction?
+    
     var numberFormatter: NumberFormatter {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .currency
         numberFormatter.maximumFractionDigits = 2
         return numberFormatter
     }
+    init(transactions: Binding<[Transaction]>, currentTransaction: Transaction?) {
+        _transactions = transactions
+        if let currentTransaction = currentTransaction {
+            title = currentTransaction.title
+            amount = currentTransaction.amount
+            type = currentTransaction.type
+        }
+    }
     
     var body: some View {
         VStack {
-            CurrencyField(placeholder: "Test", amount: $test)
                 TextField("$0.00", value: $amount, formatter: numberFormatter)
                     .font(.system(size: 60, weight: .thin))
                     .multilineTextAlignment(.center)
@@ -77,6 +85,6 @@ struct AddTransactionView: View {
 
 struct AddTransactionView_Previews: PreviewProvider {
     static var previews: some View {
-        AddTransactionView(transactions: .constant([]))
+        AddTransactionView(transactions: .constant([]), currentTransaction: nil)
     }
 }
