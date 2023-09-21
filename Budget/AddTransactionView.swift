@@ -14,19 +14,20 @@ struct AddTransactionView: View {
     @Binding var transactions: [Transaction]
     var currentTransaction: Transaction?
     
+    
+    
     var numberFormatter: NumberFormatter {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .currency
         numberFormatter.maximumFractionDigits = 2
         return numberFormatter
     }
+    
+    @Environment(\.dismiss) var dismiss
+    
     init(transactions: Binding<[Transaction]>, currentTransaction: Transaction?) {
         _transactions = transactions
-        if let currentTransaction = currentTransaction {
-            title = currentTransaction.title
-            amount = currentTransaction.amount
-            type = currentTransaction.type
-        }
+        self.currentTransaction = currentTransaction
     }
     
     var body: some View {
@@ -67,8 +68,9 @@ struct AddTransactionView: View {
             Button {
                 let newTransaction = Transaction(title: title, amount: amount, date: Date(), type: type)
                 transactions.append(newTransaction)
+                dismiss()
             } label: {
-                Text("Create")
+                Text(currentTransaction == nil ? "Create" : "Update")
                     .font(.system(size: 15, weight: .semibold))
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity)
@@ -79,6 +81,13 @@ struct AddTransactionView: View {
             }
 
             Spacer()
+        }
+        .onAppear {
+            if let currentTransaction = currentTransaction {
+                title = currentTransaction.title
+                amount = currentTransaction.amount
+                type = currentTransaction.type
+            }
         }
     }
 }

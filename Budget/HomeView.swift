@@ -11,6 +11,54 @@ import SwiftUI
 struct HomeView: View {
     @State var transactions: [Transaction] = []
     
+    var balance: String {
+        var amount: Double = 0
+        for transaction in transactions {
+            switch transaction.type {
+            case .income:
+                amount += transaction.amount
+            case .expense:
+                amount -= transaction.amount
+            }
+        }
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        let formattedAmount = formatter.string(from: amount as NSNumber)
+        return formattedAmount ?? "$0.00"
+    }
+    
+    var income: String {
+        var amount: Double = 0
+        for transaction in transactions {
+            switch transaction.type {
+            case .income:
+                amount += transaction.amount
+            case .expense:
+                break
+            }
+        }
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        let formattedAmount = formatter.string(from: amount as NSNumber)
+        return formattedAmount ?? "$0.00"
+    }
+    
+    var expense: String {
+        var amount: Double = 0
+        for transaction in transactions {
+            switch transaction.type {
+            case .expense:
+                amount += transaction.amount
+            case .income:
+                break
+            }
+        }
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        let formattedAmount = formatter.string(from: amount as NSNumber)
+        return formattedAmount ?? "$0.00"
+    }
+    
     fileprivate func BalanceView() -> some View {
         ZStack {
             RoundedRectangle(cornerRadius: 8)
@@ -25,7 +73,7 @@ struct HomeView: View {
                 .padding([.top, .leading])
                 
                 HStack {
-                    Text("$0.00")
+                    Text("\(balance)")
                         .foregroundColor(.white)
                         .font(.system(size: 42, weight: .light))
                 }
@@ -35,7 +83,7 @@ struct HomeView: View {
                         Text("Income")
                             .font(.system(size: 15, weight: .semibold))
                             .foregroundColor(.white)
-                        Text("$0.00")
+                        Text("\(income)")
                             .font(.system(size: 15, weight: .regular))
                             .foregroundColor(.white)
                     }
@@ -43,7 +91,7 @@ struct HomeView: View {
                         Text("Expenses")
                             .font(.system(size: 15, weight: .semibold))
                             .foregroundColor(.white)
-                        Text("$0.00")
+                        Text("\(expense)")
                             .font(.system(size: 15, weight: .regular))
                             .foregroundColor(.white)
                     }
@@ -69,7 +117,7 @@ struct HomeView: View {
             Spacer()
             HStack {
                     NavigationLink {
-                        AddTransactionView(transactions: $transactions)
+                        AddTransactionView(transactions: $transactions, currentTransaction: nil)
                     } label: {
                         Text("+")
                             .font(.largeTitle)
