@@ -136,18 +136,26 @@ struct HomeView: View {
             ZStack {
                 VStack {
                BalanceView()
-                    List(transactions) { transaction in
+                    List {
+                    ForEach(transactions) { transaction in
                         NavigationLink {
                             AddTransactionView(transactions: $transactions, currentTransaction: transaction)
                         } label: {
                             ListRowView(transaction: transaction)
+                            }
                         }
+                    .onDelete { indexSet in
+                        transactions.remove(atOffsets: indexSet)
+                    }
                     }
                     .scrollContentBackground(.hidden)
                 }
                 FloatingButton()
             }
         }
+    }
+    func performDelete(at offsets: IndexSet) {
+        transactions.remove(atOffsets: offsets)
     }
 }
 
