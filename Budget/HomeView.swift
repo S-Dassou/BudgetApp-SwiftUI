@@ -137,16 +137,14 @@ struct HomeView: View {
                 VStack {
                BalanceView()
                     List {
-                    ForEach(transactions) { transaction in
+                     ForEach(transactions) { transaction in
                         NavigationLink {
                             AddTransactionView(transactions: $transactions, currentTransaction: transaction)
                         } label: {
                             ListRowView(transaction: transaction)
                             }
                         }
-                    .onDelete { indexSet in
-                        transactions.remove(atOffsets: indexSet)
-                    }
+                    .onDelete(perform: performDelete)
                     }
                     .scrollContentBackground(.hidden)
                 }
