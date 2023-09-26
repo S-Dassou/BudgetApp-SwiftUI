@@ -13,23 +13,19 @@ struct AddTransactionView: View {
     @State var type: TransactionType = .expense
     @Binding var transactions: [Transaction]
     var currentTransaction: Transaction?
-    
-    
-    
+
     var numberFormatter: NumberFormatter {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .currency
         numberFormatter.maximumFractionDigits = 2
         return numberFormatter
     }
-    
     @Environment(\.dismiss) var dismiss
     
     init(transactions: Binding<[Transaction]>, currentTransaction: Transaction?) {
         _transactions = transactions
         self.currentTransaction = currentTransaction
     }
-    
     var body: some View {
         VStack {
                 TextField("$0.00", value: $amount, formatter: numberFormatter)
@@ -43,16 +39,6 @@ struct AddTransactionView: View {
                             .cornerRadius(5)
                             .padding(.trailing, 30)
                     }
-//                HStack {
-//                    Spacer()
-//                    Text("USD")
-//                        .padding(6)
-//                        .background(Color.gray.opacity(0.4))
-//                        .cornerRadius(5)
-//                        .padding(.trailing, 30)
-//                }
-            
-            
             Picker("choose a type", selection: $type) {
                 ForEach(TransactionType.allCases, id: \.self) { type in
                     Text(type.rawValue)
@@ -66,8 +52,15 @@ struct AddTransactionView: View {
                 .textFieldStyle(.roundedBorder)
                 .padding(.horizontal, 30)
             Button {
-                let newTransaction = Transaction(title: title, amount: amount, date: Date(), type: type)
-                transactions.append(newTransaction)
+                if let currentTransaction = currentTransaction {
+                    if let index = transactions.firstIndex(of: currentTransaction) {
+                        let updatedTransaction = Transaction(title: title, amount: amount, date: currentTransaction.date, type: type)
+                        transactions[index] = updatedTransaction
+                    }
+                } else {
+                    let newTransaction = Transaction(title: title, amount: amount, date: Date(), type: type)
+                    transactions.append(newTransaction)
+                }
                 dismiss()
             } label: {
                 Text(currentTransaction == nil ? "Create" : "Update")
