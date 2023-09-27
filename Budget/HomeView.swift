@@ -137,11 +137,16 @@ struct HomeView: View {
                 VStack {
                BalanceView()
                     List {
-                     ForEach(transactions) { transaction in
-                        NavigationLink {
-                            AddTransactionView(transactions: $transactions, currentTransaction: transaction)
-                        } label: {
-                            ListRowView(transaction: transaction)
+                        ForEach(transactions) { transaction in
+                            ZStack {
+                                ListRowView(transaction: transaction)
+                                
+                                NavigationLink {
+                                    AddTransactionView(transactions: $transactions, currentTransaction: transaction)
+                                } label: {
+                                    EmptyView()
+                                }
+                                .opacity(0)
                             }
                         }
                     .onDelete(perform: performDelete)
