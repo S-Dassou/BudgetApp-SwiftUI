@@ -14,6 +14,7 @@
 		F65608EC2A9F7FB800BC12DB /* AddTransactionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65608EB2A9F7FB800BC12DB /* AddTransactionView.swift */; };
 		F65608F22AA506DB00BC12DB /* TransactionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65608F12AA506DB00BC12DB /* TransactionModel.swift */; };
 		F65608FE2AAA019400BC12DB /* CurrencyField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65608FD2AAA019400BC12DB /* CurrencyField.swift */; };
+		F65609642AC45C4A00BC12DB /* CurrencyFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F65609632AC45C4A00BC12DB /* CurrencyFieldView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		F65608EB2A9F7FB800BC12DB /* AddTransactionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTransactionView.swift; sourceTree = "<group>"; };
 		F65608F12AA506DB00BC12DB /* TransactionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionModel.swift; sourceTree = "<group>"; };
 		F65608FD2AAA019400BC12DB /* CurrencyField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyField.swift; sourceTree = "<group>"; };
+		F65609632AC45C4A00BC12DB /* CurrencyFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyFieldView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 				F65608EB2A9F7FB800BC12DB /* AddTransactionView.swift */,
 				F65608F12AA506DB00BC12DB /* TransactionModel.swift */,
 				F65608FD2AAA019400BC12DB /* CurrencyField.swift */,
+				F65609632AC45C4A00BC12DB /* CurrencyFieldView.swift */,
 			);
 			path = Budget;
 			sourceTree = "<group>";
@@ -148,6 +151,7 @@
 			files = (
 				F65608F22AA506DB00BC12DB /* TransactionModel.swift in Sources */,
 				F65608EC2A9F7FB800BC12DB /* AddTransactionView.swift in Sources */,
+				F65609642AC45C4A00BC12DB /* CurrencyFieldView.swift in Sources */,
 				F65608DE2A9B872300BC12DB /* HomeView.swift in Sources */,
 				F65608FE2AAA019400BC12DB /* CurrencyField.swift in Sources */,
 				F65608DC2A9B872300BC12DB /* BudgetApp.swift in Sources */,
