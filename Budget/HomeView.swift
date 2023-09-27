@@ -9,7 +9,9 @@ import SwiftUI
 
 
 struct HomeView: View {
-    @State var transactions: [Transaction] = []
+    @State var transactions: [Transaction] = [
+        Transaction(title: "Hair", amount: 25, date: Date(), type: .expense)
+    ]
     
     var balance: String {
         var amount: Double = 0
