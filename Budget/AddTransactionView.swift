@@ -28,17 +28,18 @@ struct AddTransactionView: View {
     }
     var body: some View {
         VStack {
-                TextField("$0.00", value: $amount, formatter: numberFormatter)
-                    .font(.system(size: 60, weight: .thin))
-                    .multilineTextAlignment(.center)
-                    .textFieldStyle(.plain)
-                    .overlay(alignment: .trailing) {
-                        Text("USD")
-                            .padding(6)
-                            .background(Color.gray.opacity(0.4))
-                            .cornerRadius(5)
-                            .padding(.trailing, 30)
-                    }
+            CurrencyFieldView(amount: $amount, placeholder: "$0.00")
+//                TextField("$0.00", value: $amount, formatter: numberFormatter)
+//                    .font(.system(size: 60, weight: .thin))
+//                    .multilineTextAlignment(.center)
+//                    .textFieldStyle(.plain)
+//                    .overlay(alignment: .trailing) {
+//                        Text("USD")
+//                            .padding(6)
+//                            .background(Color.gray.opacity(0.4))
+//                            .cornerRadius(5)
+//                            .padding(.trailing, 30)
+//                    }
             Picker("choose a type", selection: $type) {
                 ForEach(TransactionType.allCases, id: \.self) { type in
                     Text(type.rawValue)
