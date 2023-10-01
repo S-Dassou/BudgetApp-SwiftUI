@@ -20,6 +20,8 @@ struct CurrencyFieldView: UIViewRepresentable {
         let textField = UITextField()
         textField.placeholder = placeholder
         textField.delegate = context.coordinator //(equiv. of textField.delegate = self but making use of coordinator note: coordinator is of type CFCoord)
+        textField.textAlignment = .center
+        textField.font = UIFont.systemFont(ofSize: 40, weight: .ultraLight)
         textField.setContentHuggingPriority(.defaultHigh, for: .vertical)
         return textField
     }
